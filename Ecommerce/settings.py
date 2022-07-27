@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-&jbf4tyar&!)o7&!^t&dcb7&!*(f%-vsk4=t1lsz-fg%y_12il
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0', 'git.heroku.com/powerful-island-68205.git']
+ALLOWED_HOSTS = ['0.0.0.0', 'powerful-island-68205.herokuapp.com']
 
 
 # Application definition

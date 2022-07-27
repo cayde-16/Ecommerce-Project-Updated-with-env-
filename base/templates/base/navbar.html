@@ -1,0 +1,51 @@
+
+{% load static %}
+{% block content %}
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<div class="navbar">
+    <div class="logo">
+        <a href="{% url 'main' %}"><img src="{% static '/images/logo.png' %}" atl=""width="125px"></a> 
+    </div>
+      <nav>
+        <ul id="MenuItems">
+          {% if user.is_authenticated %}
+          <li><a class="navbar-link" href="{% url 'product' %}">Products</a></li>
+          <li><a class="navbar-link" href="{% url 'logout' %}">Logout</a></li>
+          
+          {% else %}
+          <li><a class="navbar-link" href="{% url 'login' %}">Login</a></li>
+          <li><a class="navbar-link" href="{% url 'product' %}">Products</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+      <div class="notifications-icon-container">
+        <a href="{% url 'cart' %}"><img src="{% static '/images/cart1.png' %}" width="30px" height="30px"></a>
+        <div class="notifications-count">{{cartItems}}</div>
+      </div>
+      <img src="{% static '/images/menu.png' %}" class="menu-icon" width="30px" height="30px"onclick="menutoggle()">
+
+
+</div>
+<script>
+      var MenuItems = document.getElementById("MenuItems");
+
+      MenuItems.style.maxHeight = "0px";
+
+      function menutoggle(){
+        if (MenuItems.style.maxHeight == "0px")
+        {
+          MenuItems.style.maxHeight = "200px";
+        }
+        else
+        {
+          MenuItems.style.maxHeight = "0px";
+        }
+      }
+</script>
+    
+
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load static %}
+{% block content %}
+<h1 class="title">Lastest Products</h1>
+  <div class="row">
+    {% for product in latest_products %}
+    <a href="{% url 'details' product.id %}">
+        <div class="col-4">
+        <img src="{{product.main_image.url}}">
+        <h4>{{product.name}}</h4>
+        <div class="rating">
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star" ></i>
+            <i class="fa fa-star-o" ></i>
+        </div>
+        <p>${{product.price|floatformat:2}}</p>
+    </a>
+        </div>
+
+
+
+
+    
+  {% endfor %}
+  {% endblock %}

@@ -1,0 +1,124 @@
+{% load static %}
+{% block content %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Checkout - Redstore</title>
+  <link rel="stylesheet" href="{% static '/css/checkout.css'  %}">
+  <link rel="stylesheet" href="{% static '/css/main.css'  %}">
+  
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,600&display=swap" rel="stylesheet">
+</head>
+
+<body class="header">
+    <div class="container">
+      {% include 'base/navbar.html' %}
+      
+    <form id ="form" method="POST">
+      {% csrf_token %}
+      <div class="wrapper">
+        <div class="payment">
+          <div class="payment-logo">
+            <p>PG</p>
+          </div>
+          
+          
+          <h2>Payment Gateway</h2>
+          <div class="form">
+            
+              <div class="card space icon-relative">
+                <label class="label">Card holder:</label>
+                <input type="text" class="input" placeholder="Mr.Anderson">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="card space icon-relative">
+                <label class="label">Card number:</label>
+                <input type="text" class="input" data-mask="0000 0000 0000 0000" placeholder="Card Number">
+                <i class="far fa-credit-card"></i>
+              </div>
+              <div class="card-grp space">
+                <div class="card-item icon-relative">
+                  <label class="label">Expiry date:</label>
+                  <input type="text" name="expiry-data" class="input" data-mask="00 / 00"  placeholder="00 / 00">
+                  <i class="far fa-calendar-alt"></i>
+                </div>
+                <div class="card-item icon-relative">
+                  <label class="label">CVC:</label>
+                  <input type="text" class="input" data-mask="000" placeholder="000">
+                  <i class="fas fa-lock"></i>
+                </div>
+              </div>  
+                <div id="make-payment">
+                    <input type="submit" id="make-payment" class="btn submit">     
+                </div>                       
+          </div>
+        </div>
+      </div>
+    </form>  
+          <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+    var user = '{{request.user}}'
+    var shipping = "{{order.shipping}}"
+    var total = '{{order.get_cart_total}}'
+
+   
+
+    if(shipping == 'False'){
+        document.getElementById('form-wrapper').classList.remove("hidden");
+        document.getElementById('payment-info').classList.remove("hidden");
+    }
+    var form = document.getElementById('form')
+    
+    form.addEventListner('submit', function(e){
+      e.preventDefault()
+      console.log('Form submitted...')
+    })
+
+    document.getElementById('make-payment').addEventListner('click', function(e){
+      submitFormData()
+      console.log('payment button clicked')
+    })
+
+    function submitFormData(){
+      console.log('Payment button clicked')
+
+      var userFormData = {  
+          'name':null,
+          'email':null,
+      }
+
+      var url = '/process_order/'
+      fetch(url,{
+        method:'POST',
+        headers:{
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body:JSON.stringify({'form':userFormData})
+
+      })
+      .then((response) => response.json())
+      .then((data) =>{
+        console.log('Success:' ,data);
+        alert('Transaction completed');
+        window.location.href = "{% url 'main' %}"
+      })
+    }
+</script>
+
+
+
+    
+</body>
+{% endblock %}
+

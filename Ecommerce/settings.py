@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-&jbf4tyar&!)o7&!^t&dcb7&!*(f%-vsk4=t1lsz-fg%y_12il
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.herokuapp.com', 'powerful-island-68205.', '0.0.0.0', 'localhost']
+ALLOWED_HOSTS = ['.herokuapp.com', 'powerful-island-68205.', '0.0.0.0', 'localhost', ' http://0.0.0.0:5000', 'https://red-sporting.herokuapp.com/']
 
 
 # Application definition
